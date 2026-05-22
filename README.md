@@ -47,17 +47,44 @@ La URL por defecto está en `src/main/resources/application-neon.properties`.
 
 Abre [http://localhost:9090](http://localhost:9090) (puerto por defecto; en Docker/cloud usa la variable `PORT`).
 
-## Despliegue con Dockerfile
+## Tablas en Neon (SQL Editor)
+
+El script está en `src/main/resources/neon/01-tablas-deportivo.sql`. Pégalo en **Neon → SQL Editor** y ejecuta, o:
+
+```powershell
+$env:NEON_DATABASE_URL = "postgresql://neondb_owner:TU_CLAVE@ep-lingering-glitter-ap6kg8a1-pooler.c-7.us-east-1.aws.neon.tech/neondb?sslmode=require"
+pip install psycopg2-binary
+python scripts/aplicar-sql-neon.py
+```
+
+Si no ejecutas el SQL, Hibernate también crea las tablas al arrancar (`ddl-auto=update`).
+
+## Docker (app + Neon)
+
+1. Instala [Docker Desktop](https://www.docker.com/products/docker-desktop/).
+2. `copy .env.example .env` y pon tu `NEON_DB_PASSWORD`.
+3. `docker compose -f docker-compose.neon.yml up --build`
+4. Abre http://localhost:9090
+
+## Despliegue en Render
+
+1. Repo en GitHub: https://github.com/adrianfelipe20202-sketch/deportivo-futbol
+2. [Render Dashboard](https://dashboard.render.com) → **New** → **Blueprint** → conecta el repo.
+3. Render lee `render.yaml`. En el servicio, añade la variable secreta:
+   - `NEON_DB_PASSWORD` = contraseña de Neon (la de tu connection string).
+4. Tras el deploy, abre la URL que te da Render (puerto `PORT` lo inyecta Render automáticamente).
+
+También puedes crear el servicio manualmente: **New Web Service** → Runtime **Docker** → mismo repo y variables del `render.yaml`.
+
+## Despliegue con Dockerfile (manual)
 
 ```bash
 docker build -t deportivo-futbol .
 docker run -p 9090:9090 \
   -e NEON_DB_PASSWORD=tu_clave \
-  -e SPRING_DATASOURCE_URL="jdbc:postgresql://..." \
+  -e SPRING_DATASOURCE_URL="jdbc:postgresql://ep-lingering-glitter-ap6kg8a1-pooler.c-7.us-east-1.aws.neon.tech:5432/neondb?sslmode=require" \
   deportivo-futbol
 ```
-
-Compatible con Render, Railway, Fly.io, etc. (no Vercel para apps Java).
 
 ## Estructura
 

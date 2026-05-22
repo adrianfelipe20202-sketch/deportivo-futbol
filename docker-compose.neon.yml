@@ -1,0 +1,16 @@
+# App en Docker apuntando a Neon (necesitas Docker Desktop).
+# Uso: copia .env.example → .env, rellena NEON_DB_PASSWORD, luego:
+#   docker compose -f docker-compose.neon.yml up --build
+services:
+  app:
+    build: .
+    container_name: deportivo-futbol-app
+    ports:
+      - "9090:9090"
+    environment:
+      SPRING_PROFILES_ACTIVE: neon
+      NEON_DB_USER: ${NEON_DB_USER:-neondb_owner}
+      NEON_DB_PASSWORD: ${NEON_DB_PASSWORD}
+      SPRING_DATASOURCE_URL: ${SPRING_DATASOURCE_URL:-jdbc:postgresql://ep-lingering-glitter-ap6kg8a1-pooler.c-7.us-east-1.aws.neon.tech:5432/neondb?sslmode=require}
+      PORT: "9090"
+    restart: unless-stopped

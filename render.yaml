@@ -1,0 +1,22 @@
+# Blueprint Render: conecta el repo en https://dashboard.render.com → New → Blueprint
+services:
+  - type: web
+    name: deportivo-futbol
+    runtime: docker
+    plan: free
+    region: oregon
+    branch: master
+    dockerfilePath: ./Dockerfile
+    healthCheckPath: /
+    autoDeploy: true
+    envVars:
+      - key: SPRING_PROFILES_ACTIVE
+        value: neon
+      - key: NEON_DB_USER
+        value: neondb_owner
+      - key: NEON_DB_PASSWORD
+        sync: false
+      - key: SPRING_DATASOURCE_URL
+        value: jdbc:postgresql://ep-lingering-glitter-ap6kg8a1-pooler.c-7.us-east-1.aws.neon.tech:5432/neondb?sslmode=require
+      - key: JAVA_TOOL_OPTIONS
+        value: -XX:+UseContainerSupport -XX:MaxRAMPercentage=75.0
