@@ -1,0 +1,47 @@
+HELP.md
+target/
+.mvn/wrapper/maven-wrapper.jar
+!**/src/main/**/target/
+!**/src/test/**/target/
+
+### STS ###
+.apt_generated
+.classpath
+.factorypath
+.project
+.settings
+.springBeans
+.sts4-cache
+
+### IntelliJ IDEA ###
+.idea
+*.iws
+*.iml
+*.ipr
+
+### NetBeans ###
+/nbproject/private/
+/nbbuild/
+/dist/
+/nbdist/
+/.nb-gradle/
+build/
+!**/src/main/**/build/
+!**/src/test/**/build/
+
+### VS Code ###
+.vscode/
+
+### Supabase CLI (credenciales / estado local; no subir a git) ###
+supabase/.temp/
+supabase/.branches/
+.supabase/
+.env
+.env.local
+
+# Contraseña Neon/BD solo en local (ver README y NeonLocalCredentialsPostProcessor)
+config/supabase-db.properties
+
+### Agent skills locales (no necesarios en el repo) ###
+.agents/
+skills-lock.json

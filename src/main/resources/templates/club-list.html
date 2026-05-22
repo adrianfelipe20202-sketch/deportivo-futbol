@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/head :: head ('Clubes — Listado')}"></head>
+<body>
+
+<th:block th:replace="~{fragments/sidebar :: sidebar (${activeNav})}"></th:block>
+
+<main class="shell shell-wide">
+    <header class="page-head">
+        <p class="eyebrow">Módulo clubes</p>
+        <h1>Clubes y relaciones JPA</h1>
+        <p class="lede">OneToOne entrenador · ManyToOne asociación · OneToMany jugadores · ManyToMany competiciones.</p>
+    </header>
+
+    <div class="alert alert-ok" th:if="${mensajeExito}" th:text="${mensajeExito}"></div>
+    <div class="alert alert-bad" th:if="${mensajeError}" th:text="${mensajeError}"></div>
+
+    <div class="d-flex flex-wrap gap-2 mb-3">
+        <a class="btn solid" th:href="@{/clubes/nuevo}"><i class="fa-solid fa-plus me-2"></i>Nuevo club</a>
+        <a class="btn ghost" th:href="@{/}"><i class="fa-solid fa-arrow-left me-2"></i>Dashboard</a>
+    </div>
+
+    <section class="panel">
+        <div class="empty" th:if="${clubes.isEmpty()}">
+            <p>No hay clubes — <a th:href="@{/clubes/nuevo}">crear uno</a>.</p>
+        </div>
+        <div class="table-wrap" th:unless="${clubes.isEmpty()}">
+            <table>
+                <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Club</th>
+                    <th>Entrenador</th>
+                    <th>Asociación</th>
+                    <th>Plantilla</th>
+                    <th>Torneos</th>
+                    <th>Integridad</th>
+                    <th>Acciones</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="cl : ${clubes}">
+                    <td class="muted" th:text="${cl.id}"></td>
+                    <td class="nombre-cell">
+                        <span class="bubble"><i class="fa-solid fa-shield-halved"></i></span>
+                        <span th:text="${cl.nombre}"></span>
+                    </td>
+                    <td th:text="|${cl.entrenador.nombre} ${cl.entrenador.apellido}|"></td>
+                    <td th:text="${cl.asociacion.nombre}"></td>
+                    <td><span class="badge badge-ok" th:text="|${cl.jugadores.size()} jugadores|">0</span></td>
+                    <td><span class="badge badge-warn" th:text="|${cl.competiciones.size()} torneos|">0</span></td>
+                    <td><span class="badge badge-muted"><i class="fa-solid fa-link me-1"></i>OK</span></td>
+                    <td class="tools">
+                        <a class="pill-link" th:href="@{/clubes/{id}/editar(id=${cl.id})}"><i class="fa-solid fa-pen me-1"></i>Editar</a>
+                        <a class="pill-link danger" th:href="@{/clubes/{id}/eliminar(id=${cl.id})}"
+                           onclick="return confirm('¿Eliminar este club y su plantilla?');"><i class="fa-solid fa-trash me-1"></i>Eliminar</a>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </section>
+</main>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+        crossorigin="anonymous"></script>
+<script th:src="@{/js/app.js}"></script>
+</body>
+</html>

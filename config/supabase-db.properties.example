@@ -1,0 +1,6 @@
+# Copia este archivo a: config/supabase-db.properties (misma carpeta, sin .example)
+# O crea: %USERPROFILE%\.deportivo\supabase-db.properties
+#
+# Contraseña de Neon (Dashboard → Connection string) o Docker local (ver README):
+
+spring.datasource.password=PON_AQUI_TU_CLAVE

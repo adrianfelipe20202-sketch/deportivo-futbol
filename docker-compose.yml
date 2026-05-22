@@ -1,0 +1,21 @@
+# PostgreSQL local: restaura la BD si borraste Neon/Supabase (tablas vía Hibernate + datos demo al arrancar).
+services:
+  db:
+    image: postgres:16-alpine
+    container_name: deportivo-futbol-db
+    environment:
+      POSTGRES_USER: deportivo
+      POSTGRES_PASSWORD: deportivo
+      POSTGRES_DB: deportivo
+    ports:
+      - "5432:5432"
+    volumes:
+      - deportivo_pg_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U deportivo -d deportivo"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+volumes:
+  deportivo_pg_data:

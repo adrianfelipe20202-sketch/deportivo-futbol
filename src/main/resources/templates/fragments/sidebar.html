@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<body>
+<th:block th:fragment="sidebar (activeNav)">
+    <aside class="sidebar">
+        <div class="brand">
+            <span class="brand-badge"><i class="fa-solid fa-futbol me-1"></i>SPRING BOOT 3</span>
+            <strong class="brand-title">Panel deportivo</strong>
+            <span class="brand-sub">Thymeleaf · JPA · Neon</span>
+        </div>
+        <nav class="nav">
+            <a th:href="@{/}" class="nav-link" th:classappend="${activeNav == 'dashboard'} ? ' active'">
+                <i class="fa-solid fa-chart-pie me-2"></i>Dashboard
+            </a>
+            <a th:href="@{/entrenadores}" class="nav-link" th:classappend="${activeNav == 'entrenadores'} ? ' active'">
+                <i class="fa-solid fa-user-tie me-2"></i>Entrenadores
+            </a>
+            <a th:href="@{/asociaciones}" class="nav-link" th:classappend="${activeNav == 'asociaciones'} ? ' active'">
+                <i class="fa-solid fa-building-columns me-2"></i>Asociaciones
+            </a>
+            <a th:href="@{/competiciones}" class="nav-link" th:classappend="${activeNav == 'competiciones'} ? ' active'">
+                <i class="fa-solid fa-trophy me-2"></i>Competiciones
+            </a>
+            <a th:href="@{/jugadores}" class="nav-link" th:classappend="${activeNav == 'jugadores'} ? ' active'">
+                <i class="fa-solid fa-shirt me-2"></i>Jugadores
+            </a>
+            <a th:href="@{/clubes}" class="nav-link" th:classappend="${activeNav == 'clubes'} ? ' active'">
+                <i class="fa-solid fa-shield-halved me-2"></i>Clubes
+            </a>
+        </nav>
+        <footer class="sidebar-foot">
+            <span class="pill"><i class="fa-solid fa-database me-1"></i><span th:text="|Perfil: ${resumenPerfilDb}|">Perfil</span></span>
+        </footer>
+    </aside>
+</th:block>
+</body>
+</html>

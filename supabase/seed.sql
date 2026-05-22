@@ -1,0 +1,2 @@
+-- Semillas locales (Supabase CLI / otros). El proyecto Spring solo usa Neon; datos demo vía SupabaseDemoDataLoader (perfil neon).
+-- Añade aquí INSERTs si quieres datos fijos vía CLI.
